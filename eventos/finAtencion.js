@@ -25,7 +25,7 @@ export  const finAtencion = (reloj, eventos, peluquero,datosForm, dia, cola) =>{
     }else{
         //let rnd = generarRandom();
         //let demora = generarRandomUniforme(rnd, datosForm.veteranoB[1], datosForm.veteranoB[2]);
-        let demora = parseFloat(generarEuler(cola.length,datosForm[1]));
+        let demora = parseFloat(generarEuler(cola.length,datosForm.corte[1]));
         let finAtencion = parseFloat((reloj + demora));
         const colaActual = cola.map((cliente) => ({...cliente}))
         let finAtencionVeteranoB = new FinAtencionVeteranoB(colaActual.length, demora, finAtencion);
