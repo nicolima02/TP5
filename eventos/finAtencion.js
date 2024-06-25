@@ -7,7 +7,7 @@ export  const finAtencion = (reloj, eventos, peluquero,datosForm, dia, cola) =>{
         //let rnd = generarRandom(); 
         //let demora = generarRandomUniforme(rnd, datosForm.aprendiz[1], datosForm.aprendiz[2]);
         let demora = parseFloat(generarEuler(cola.length,datosForm.corte[0]));
-        let finAtencion = parseFloat(reloj + demora);
+        let finAtencion = parseFloat(reloj + demora).toFixed(2);
         const colaActual = cola.map((cliente) => ({...cliente}))
         let finAtencionAprendiz = new FinAtencionAprendiz(colaActual.length,demora, finAtencion);
         let control =  new Control(finAtencionAprendiz,dia,finAtencion);
@@ -16,7 +16,7 @@ export  const finAtencion = (reloj, eventos, peluquero,datosForm, dia, cola) =>{
         //let rnd = generarRandom();
         //let demora = generarRandomUniforme(rnd, datosForm.veteranoA[1], datosForm.veteranoA[2]);
         let demora = parseFloat(generarEuler(cola.length,datosForm.corte[1]));
-        let finAtencion = parseFloat((reloj + demora));
+        let finAtencion = parseFloat((reloj + demora)).toFixed(2);
         const colaActual = cola.map((cliente) => ({...cliente}))
         let finAtencionVeteranoA = new FinAtencionVeteranoA(colaActual.length, demora, finAtencion);
         let control =  new Control(finAtencionVeteranoA,dia,finAtencion);
@@ -25,8 +25,13 @@ export  const finAtencion = (reloj, eventos, peluquero,datosForm, dia, cola) =>{
     }else{
         //let rnd = generarRandom();
         //let demora = generarRandomUniforme(rnd, datosForm.veteranoB[1], datosForm.veteranoB[2]);
+<<<<<<< HEAD
+        let demora = parseFloat(generarEuler(cola.length,datosForm[1]));
+        let finAtencion = parseFloat((reloj + demora)).toFixed(2);
+=======
         let demora = parseFloat(generarEuler(cola.length,datosForm.corte[1]));
         let finAtencion = parseFloat((reloj + demora));
+>>>>>>> 1c49ee3644edc5f20d66cf337977066cba2af2e3
         const colaActual = cola.map((cliente) => ({...cliente}))
         let finAtencionVeteranoB = new FinAtencionVeteranoB(colaActual.length, demora, finAtencion);
         let control =  new Control(finAtencionVeteranoB,dia,finAtencion);
