@@ -122,6 +122,9 @@ export const generarDatos = (datosForm)=>{
                     const colaVeteranoB = veteranoB.cola.length == 0 ? [] : veteranoB.cola.map(cliente => ({ ...cliente }));
                     veteranoBActual.cola = colaVeteranoB;                   
                     if (filas[0]?.relojAMostrar !== reloj && reloj <= horaCierre) {
+                        if (eventos[0]?.evento.reloj > 470) {
+                            console.log("HGola");
+                        }
                         ({peluquero,sa} = asignacionPeluquero(datosForm, aprendiz,veteranoA,veteranoB, cliente,reloj,eventos,dia));
                     }
                 if (llegadaClienteF?.relojAMostrar < horaCierre && !evento1) {
