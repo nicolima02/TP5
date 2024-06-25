@@ -60,6 +60,7 @@ export const generarDatos = (datosForm)=>{
             if (reloj >= horaCierre && filas.length === 0){ //mejorar para que no termine en un dia, agregar un if que controle si dia > datosForm.dia
                 recaudacion.gananciasDiarias = 0;
                 dia++;
+                reloj = 0;
                 eventos = [];
                 if (dia > datosForm.tiempo) {
                     abierto = false;
