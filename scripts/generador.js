@@ -39,6 +39,7 @@ export const generarDatos = (datosForm)=>{
                 peluquero = "";
                 sa = false
                 aprendiz.estado = "L"
+                esperas.esperaSimultaneas = 0;
                 aprendiz.cola = [] 
                 veteranoA.estado = "L"
                 veteranoA.cola = []
@@ -118,6 +119,9 @@ export const generarDatos = (datosForm)=>{
                     const colaVeteranoB = veteranoB.cola.length == 0 ? [] : veteranoB.cola.map(cliente => ({ ...cliente }));
                     veteranoBActual.cola = colaVeteranoB;                   
                     if (filas[0]?.relojAMostrar !== reloj && reloj <= horaCierre) {
+                        if (reloj > 470) {
+                            console.log("ola");
+                        }
                         ({peluquero,sa} = asignacionPeluquero(datosForm, aprendiz,veteranoA,veteranoB, cliente,reloj,eventos,dia));
                     }
                 if (llegadaClienteF?.relojAMostrar < horaCierre && !evento1) {
