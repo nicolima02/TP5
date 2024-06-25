@@ -25,9 +25,13 @@ export const obtenerDatosFormulario = () => {
         parseInt(document.getElementById('rangoDesde').value),
         parseInt(document.getElementById('rangoHasta').value)
     ]
+    const corte = [
+        parseFloat(document.getElementById('corteAprendiz').value),
+        parseFloat(document.getElementById('corteVeterano').value),
+    ]
 
     // Crear un objeto de la clase DatosFormulario con los valores obtenidos
-    const datosFormulario = new DatosFormulario(tiempo, aprendiz, veteranoA, veteranoB, llegadaClientes, rango);
+    const datosFormulario = new DatosFormulario(tiempo, aprendiz, veteranoA, veteranoB, llegadaClientes, rango, corte);
 
     return datosFormulario;
 }

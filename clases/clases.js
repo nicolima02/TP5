@@ -1,12 +1,13 @@
 
 export class DatosFormulario {
-    constructor(tiempo, aprendiz, veteranoA, veteranoB, llegadaClientes, rango) {
+    constructor(tiempo, aprendiz, veteranoA, veteranoB, llegadaClientes, rango, corte) {
         this.tiempo = tiempo;
         this.aprendiz = aprendiz;
         this.veteranoA = veteranoA;
         this.veteranoB = veteranoB;
         this.llegadaClientes = llegadaClientes;
         this.rango = rango;
+        this.corte = corte;
     }
 }
 

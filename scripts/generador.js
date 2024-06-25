@@ -57,10 +57,9 @@ export const generarDatos = (datosForm)=>{
             }
             //reloj = eventos[0]?.evento.llegada
             
-            if (reloj >= horaCierre && clientes.length === 0){ //mejorar para que no termine en un dia, agregar un if que controle si dia > datosForm.dia
+            if (reloj >= horaCierre && filas.length === 0){ //mejorar para que no termine en un dia, agregar un if que controle si dia > datosForm.dia
                 recaudacion.gananciasDiarias = 0;
                 dia++;
-                reloj = 0;
                 eventos = [];
                 if (dia > datosForm.tiempo) {
                     abierto = false;
@@ -76,9 +75,16 @@ export const generarDatos = (datosForm)=>{
                     evento1 = eventos[0];
                 }else{
                     evento1 = null
-                    reloj = eventos[0]?.evento.llegada >= horaCierre ? filas[0]?.relojAMostrar : eventos[0]?.evento.llegada;
+                    if ( eventos[0]?.evento.llegada >= horaCierre) {
+                        if (filas[0]?.relojAMostrar) {
+                            reloj = filas[0]?.relojAMostrar
+                        }else{
+                            reloj = eventos[0]?.evento.llegada
+                        }
+                    }else{
+                        reloj = eventos[0]?.evento.llegada;
+                    }
                 }
-                console.log(reloj);
                 if (reloj === undefined) {
                     break
                 }
@@ -86,14 +92,16 @@ export const generarDatos = (datosForm)=>{
                 if (!evento1) {
                     llegadaCliente(reloj,eventos,dia);
                     llegadaClienteF = new Fila(filas.length+1, {nombre:eventos[0].evento.constructor.name, demora:eventos[0].evento.demora, llegada:eventos[0].evento.llegada}
-                        , reloj, {nombre:eventos[0].evento.constructor.name, demora:eventos[0].evento.demora, llegada:eventos[0].evento.llegada, demora:eventos[0].evento.demora},
+                        , reloj, {nombre:eventos[0].evento.constructor.name, demora:eventos[0].evento.demora, llegada:eventos[0].evento.llegada, random:eventos[0].evento.random},
                         {peluquero:peluquero.peluquero, random:peluquero.random},"finAtencionP",
                         {clientesAtendidos:aprendiz.clientesAtendidos,estado:aprendiz.estado},{clientesAtendidos:veteranoA.clientesAtendidos,estado:veteranoA.estado},
                         {clientesAtendidos:veteranoB.clientesAtendidos,estado:veteranoB.estado}, {gananciasDiarias:recaudacion.gananciasDiarias, gastosDiarios:recaudacion.gastosDiarios,gananciasNetas:recaudacion.gananciasNetas},
                         "",clientes, dia);       
                         clientes.sort((a,b)=>a.numero - b.numero);
                         //const numeroCliente = getNumeroCliente(clientes);              
-                        numeroCliente++;
+                        if (reloj <= horaCierre) {
+                            numeroCliente++;
+                        }
                         cliente = new Cliente(numeroCliente, "EE", null, parseFloat(reloj+30), false);           
                     }
                     liberacionPeluquero(reloj,aprendiz,veteranoA,veteranoB,filas,clientes,eventos,dia,datosForm,recaudacion);
@@ -108,7 +116,7 @@ export const generarDatos = (datosForm)=>{
                     aprendizActual.cola = colaAprendiz;
                     const colaVeteranoB = veteranoB.cola.length == 0 ? [] : veteranoB.cola.map(cliente => ({ ...cliente }));
                     veteranoBActual.cola = colaVeteranoB;                   
-                    if (filas[0]?.relojAMostrar !== reloj) {
+                    if (filas[0]?.relojAMostrar !== reloj && reloj <= horaCierre) {
                         ({peluquero,sa} = asignacionPeluquero(datosForm, aprendiz,veteranoA,veteranoB, cliente,reloj,eventos,dia));
                     }
                 if (llegadaClienteF?.relojAMostrar < horaCierre && !evento1) {
@@ -210,8 +218,8 @@ export const generarDatos = (datosForm)=>{
                 fila.numero = index + 1;
             });
         };
-        generarTabla(filasAgregadas,esperas.maxEsperaSimultanea);
-        crearTabla(filasAgregadas,datosForm);
+        generarTabla(filasAgregadas,numeroCliente);
+        crearTabla(filasAgregadas,datosForm,numeroCliente);
         
     }
 };
